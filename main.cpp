@@ -1,5 +1,7 @@
 #include "DxLib.h"
-
+#include<iostream>
+#include"Student.h"
+using namespace std;
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "xx2x_xx_ナマエ: タイトル";
 
@@ -8,7 +10,7 @@ const int WIN_WIDTH = 600;
 
 // ウィンドウ縦幅
 const int WIN_HEIGHT = 400;
-
+bool Student::StudentFlag;
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
                    _In_ int nCmdShow) {
 	// ウィンドウモードに設定
@@ -40,6 +42,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
+	Student* Student1 = new Student;
+	Student* Student2 = new Student;
+	Student* Student3 = new Student;
+
+	cout << Student::StudentFlag << endl;
+	delete Student1;
+
+	cout << Student::StudentFlag << endl;
+	delete Student2;
+	delete Student3;
+	cout << Student::StudentFlag << endl;
 
 
 	// 最新のキーボード情報用
@@ -51,6 +64,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// ゲームループ
 	while (true) {
 		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
+		for (int i = 0; i < 256; i++)
+		{
+			oldkeys[i] = keys[i];
+		}
 		// 最新のキーボード情報を取得
 		GetHitKeyStateAll(keys);
 
@@ -61,7 +78,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// 更新処理
 
 
+		if (keys[KEY_INPUT_SPACE] == 1)
+		{
+			Student1->StudentFlag = true;
+		}
+
+
 		// 描画処理
+		if (Student1->StudentFlag == false)
+		{
+			DrawBox(0, 60, 60, 120, GetColor(0, 255, 255), true);
+			DrawBox(120, 60, 180, 120, GetColor(0, 255, 255), true);
+			DrawBox(240, 60, 300, 120, GetColor(0, 255, 255), true);
+		}
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
